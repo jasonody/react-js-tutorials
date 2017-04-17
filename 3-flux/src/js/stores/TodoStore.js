@@ -46,6 +46,20 @@ class TodoStore extends EventEmitter {
         this.emit("change");
         break;
       }
+      case "DELETE_TODO": {
+        const todos = this.todos.filter(item => item.id != action.id)
+        this.todos = todos
+        this.emit("change")
+      }
+      case "EDIT_TODO": {
+        console.log(action)
+        const todo = this.todos.filter(item => item.id == action.id)
+        console.log(todo)
+        if (todo.length > 0) {
+          todo[0].text = action.text
+          this.emit("change")
+        }
+      }
     }
   }
 
